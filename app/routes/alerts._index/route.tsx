@@ -5,7 +5,6 @@ import { Card, Badge, Text, Box, Flex } from "@radix-ui/themes";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const data = await getPromptsAndResponses();
-  console.log(data);
 
   return {
     riskyPrompts: data.prompts.filter((prompt) => prompt.risk_score > 0),
