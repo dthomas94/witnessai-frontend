@@ -1,14 +1,14 @@
-import { Table } from "@/ui/primitives/Table/Table";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
-import axios from "axios";
 import {
+  Outlet,
   useLoaderData,
   useNavigate,
   type ClientLoaderFunctionArgs,
 } from "react-router";
 import { getConversations } from "api/index";
 import { format } from "date-fns";
+import { ConversationsList } from "@/features/conversations/components/ConversationsList";
 
 export function HydrateFallback() {
   return (
@@ -46,16 +46,25 @@ export default function ConversationsIndexRoute() {
         accessorKey: "title",
         header: "Conversation Title",
         cell: (info) => info.getValue(),
+        meta: {
+          widthClassName: "w-[300px]",
+        },
       },
       {
         accessorKey: "user_id",
         header: "User ID",
         cell: (info) => info.getValue(),
+        meta: {
+          widthClassName: "w-[100px]",
+        },
       },
       {
         accessorFn: (row) =>
           format(new Date(row.updated), "MMM d, yyyy hh:mm a"),
         header: "Last Message Sent",
+        meta: {
+          widthClassName: "w-[150px]",
+        },
       },
     ],
     [],
@@ -66,16 +75,20 @@ export default function ConversationsIndexRoute() {
   };
 
   return (
-    <main>
-      <h1 className="font-bold text-center py-4">Conversations</h1>
-      <div className="w-full calc(100vh-10rem) overflow-scroll">
-        <Table
+    <div className="flex gap-4 h-full mt-4">
+      <div className="flex-1">
+        <ConversationsList
+          title="Conversations"
           data={conversations}
           columns={columns}
           pagination={pagination}
           onRowClick={handleRowClick}
         />
       </div>
-    </main>
+
+      <div className="flex-1 h-full">
+        <Outlet />
+      </div>
+    </div>
   );
 }
