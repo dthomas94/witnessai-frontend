@@ -46,37 +46,28 @@ export default function ConversationsIndexRoute() {
         accessorKey: "title",
         header: "Conversation Title",
         cell: (info) => info.getValue(),
-        meta: {
-          widthClassName: "w-[300px]",
-        },
       },
       {
         accessorKey: "user_id",
         header: "User ID",
         cell: (info) => info.getValue(),
-        meta: {
-          widthClassName: "w-[100px]",
-        },
       },
       {
         accessorFn: (row) =>
           format(new Date(row.updated), "MMM d, yyyy hh:mm a"),
         header: "Last Message Sent",
-        meta: {
-          widthClassName: "w-[150px]",
-        },
       },
     ],
     [],
   );
 
   const handleRowClick = (row: (typeof conversations)[number]) => {
-    navigate(`/conversations/${row.id}`);
+    navigate(`/conversations/${row.id}`, { replace: true });
   };
 
   return (
     <div className="flex gap-4 h-full mt-4">
-      <div className="flex-1">
+      <div className="flex-1 min-w-[400px]">
         <ConversationsList
           title="Conversations"
           data={conversations}

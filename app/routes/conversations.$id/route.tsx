@@ -1,8 +1,8 @@
 import { ChatBubble } from "@/ui/primitives/ChatBubble/ChatBubble";
 import { getConversation, getPromptsAndResponses } from "api";
 import type { LoaderFunctionArgs } from "react-router";
-import { useLoaderData, useNavigate } from "react-router";
-import { Badge, Button } from "@radix-ui/themes";
+import { useLoaderData } from "react-router";
+import { Badge } from "@radix-ui/themes";
 import clsx from "clsx";
 
 function extractResponseText(
@@ -34,10 +34,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 export default function ConversationRoute() {
   const { conversation, promptsAndResponses } = useLoaderData<typeof loader>();
-  const navigate = useNavigate();
   return (
     <div>
-      <Button onClick={() => navigate(-1)}>Go Back</Button>
       <h1 className="text-2xl font-bold text-center py-4">
         {conversation.title}
       </h1>
