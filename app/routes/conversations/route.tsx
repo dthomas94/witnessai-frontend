@@ -62,7 +62,7 @@ export default function ConversationsIndexRoute() {
   );
 
   const handleRowClick = (row: (typeof conversations)[number]) => {
-    navigate(`/conversations/${row.id}`, { replace: true });
+    navigate(`/conversations/${row.id}`);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, useRef, useEffect } from "react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -47,6 +47,7 @@ export function ConversationsList<ConversationEntity>({
   actions,
 }: ConversationsListProps<ConversationEntity>) {
   const navigate = useNavigate();
+  const tableContainerRef = useRef<HTMLDivElement>(null);
 
   // TanStack state
   const [globalFilter, setGlobalFilter] = useState("");
@@ -84,6 +85,12 @@ export function ConversationsList<ConversationEntity>({
     },
   });
 
+  useEffect(() => {
+    if (tableContainerRef.current) {
+      tableContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [table.getState().pagination.pageIndex]);
+
   const totalPages = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex + 1;
 
@@ -120,7 +127,10 @@ export function ConversationsList<ConversationEntity>({
           ) : null}
         </div>
 
-        <div className="flex flex-col h-[calc(100vh-275px)] min-h-0 overflow-scroll">
+        <div
+          ref={tableContainerRef}
+          className="flex flex-col h-[calc(100vh-275px)] min-h-0 overflow-scroll"
+        >
           {/* List */}
           <div className="border-t border-slate-200 min-h-0 min-w-[400px]">
             {table.getRowModel().rows.length === 0 ? (
