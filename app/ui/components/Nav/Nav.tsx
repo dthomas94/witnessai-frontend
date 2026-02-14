@@ -11,17 +11,13 @@ export function Nav() {
   const { pathname } = useLocation();
 
   return (
-    <nav className="border-b">
-      <TabNav.Root size="2" justify="start">
+    <nav className="py-2">
+      <TabNav.Root justify="start">
         {navItems.map(({ to, label }) => (
           <TabNav.Link
             key={to}
             asChild
-            active={
-              to === "/"
-                ? pathname === "/"
-                : pathname.startsWith(to)
-            }
+            active={to === "/" ? pathname === "/" : pathname.startsWith(to)}
           >
             <Link to={to}>{label}</Link>
           </TabNav.Link>

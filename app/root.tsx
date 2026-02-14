@@ -9,7 +9,7 @@ import {
 import "@radix-ui/themes/styles.css";
 import "./app.css";
 import { Theme } from "@radix-ui/themes";
-import { Nav } from "@/ui/Nav";
+import { Nav } from "@/ui/components/Nav/Nav";
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
