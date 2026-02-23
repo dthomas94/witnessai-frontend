@@ -9,13 +9,10 @@ import {
 import { getConversations } from "api/index";
 import { format } from "date-fns";
 import { ConversationsList } from "@/features/conversations/components/ConversationsList";
+import { LoadingScreen } from "@/ui/screens/LoadingScreen/LoadingScreen";
 
 export function HydrateFallback() {
-  return (
-    <main>
-      <h1>Loading...</h1>
-    </main>
-  );
+  return <LoadingScreen />;
 }
 
 export async function clientLoader({ request }: ClientLoaderFunctionArgs) {

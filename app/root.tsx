@@ -5,12 +5,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "react-router";
 import "@radix-ui/themes/styles.css";
 import "./app.css";
 import { Theme } from "@radix-ui/themes";
 import { Nav } from "@/ui/components/Nav/Nav";
 import type { Route } from "./+types/root";
+import { LoadingScreen } from "@/ui/screens/LoadingScreen/LoadingScreen";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -47,7 +49,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const navigation = useNavigation();
+  const isNavigating =
+    navigation.state === "loading" && Boolean(navigation.location);
+
+  return isNavigating ? <LoadingScreen /> : <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
